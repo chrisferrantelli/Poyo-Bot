@@ -7,6 +7,8 @@ import aiohttp
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
+COPE_AUDIO = os.getenv('COPE_AUDIO')
+FFMPEG_PATH = os.getenv('FFMPEG_PATH')
 
 # Set up intents
 intents = discord.Intents.default()
@@ -76,5 +78,18 @@ async def insult(ctx, user: discord.Member = None):
           await ctx.send(f'{insultt}')
         else:
           await ctx.send(f'{user.mention}: {insultt}')
+
+
+@bot.command()
+async def play_cope(ctx):
+   if not ctx.message.author.voice:
+      await ctx.send("You are not in a voice channel")
+      return
+   
+   vc = ctx.message.author.voice.channel
+   voiceCha = await vc.connect()
+   await ctx.send(f"Joined {vc.name}")
+   voiceCha.play(discord.FFmpegPCMAudio(source=COPE_AUDIO, executable=FFMPEG_PATH))
+          
 
 bot.run(TOKEN)
