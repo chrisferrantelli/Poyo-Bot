@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
-class Fun(commands.Cog):
+class Fun(commands.Cog, name="Play audio"):
     def __init__(self, bot):
         self.bot = bot
         

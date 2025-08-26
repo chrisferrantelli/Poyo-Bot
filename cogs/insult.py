@@ -3,7 +3,7 @@ import aiohttp
 
 from discord.ext import commands
 
-class Fun(commands.Cog):
+class Fun(commands.Cog, name="insult"):
     def __init__(self, bot):
         self.bot = bot
 
