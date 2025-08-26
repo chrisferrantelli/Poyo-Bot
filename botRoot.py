@@ -18,9 +18,9 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 
-@bot.command()
-async def setup_hook():
-   await bot.load_extension("cogs.poyoball")
+@bot.event
+async def on_ready():
+   bot.load_extension("cogs.poyoball")
 
 
 @bot.event
