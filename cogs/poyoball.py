@@ -51,7 +51,7 @@ class PoyoballCog(commands.Cog):
         with Image.open("resources/kirby_board.jpg") as img:
             draw = ImageDraw.Draw(img)
             
-            font = ImageFont.truetype("DejaVuSans.ttf", 20)
+            font = ImageFont.truetype("DejaVuSans.ttf", 45)
             
             # draws the text on the image
             draw.text((90, 25), resp, font=font, fill=(0,0,0))
