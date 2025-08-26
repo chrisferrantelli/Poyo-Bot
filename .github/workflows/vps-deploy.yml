@@ -16,7 +16,7 @@ jobs:
           key: ${{ secrets.VPS_PASSKEY}}
           script: |
             set -e
-            cd /opt/poyobot
+            cd ${{ secrets.REPO_DIR }}
             git pull origin main
             docker compose up -d --build
             docker image prune -f
