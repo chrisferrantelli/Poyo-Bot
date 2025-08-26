@@ -8,7 +8,7 @@ class Fun(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def poyoball(ctx, *, question):
+    async def poyoball(self, ctx, *, question):
         responses = [
                 # Positive
                 "POYO!",
@@ -39,5 +39,5 @@ class Fun(commands.Cog):
 
         await ctx.send(f'{random.choice(responses)}')
 
-def setup(bot):
-    bot.add_cog(Fun(bot))
+async def setup(bot):
+    await bot.add_cog(Fun(bot))

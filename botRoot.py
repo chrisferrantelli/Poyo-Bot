@@ -59,4 +59,5 @@ async def play_cope(ctx):
    voiceCha.play(discord.FFmpegPCMAudio(source=AUDIO_PATH, executable=FFMPEG_PATH))
           
 bot.load_extension("cogs.poyoball")
+
 bot.run(TOKEN)
