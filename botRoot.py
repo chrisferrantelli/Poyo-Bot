@@ -32,7 +32,7 @@ async def on_ready():
 @bot.command()
 async def help(ctx):
    embed = discord.Embed(
-         title='PoyoBot Commands (working on adding more)'
+         title='PoyoBot Commands (working on adding more)',
          description='''**Commands:**
          !poyoball [question] - Kirby will respond to your yes/no question
          !ego [other user optional] - Run this command to measure your or someone elses ego
