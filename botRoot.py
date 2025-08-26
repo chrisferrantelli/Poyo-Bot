@@ -53,7 +53,7 @@ async def insult(ctx, user: discord.Member = None):
         if resp.status == 200 and (user == ctx.author or user == None):
           await ctx.send(f'{insultt}')
         else:
-          await ctx.send(f'{user.mention}: {insultt}')
+          await ctx.send(f'{user.mention}, {insultt}')
 
 
 @bot.command()
