@@ -27,39 +27,6 @@ async def on_ready():
 async def poyosay(ctx):
     await ctx.send('Poyo!')
 
-
-@bot.command()
-async def poyoball(ctx, *, question):
-  responses = [
-        # Positive
-        "POYO!",
-        "Poyoooo!!",
-        "POOYO! (double puff)",
-        "POYOPOYO!!",
-        "poyo. (nods firmly)",
-        "Poyo~",
-        "Po~yo? (hopeful bounce)",
-        "poyo poyo poyo!",
-        "poyo.",
-        "POyO!! (with jazz hands)",
-
-        # Uncertain
-        "...poyo?",
-        "poy...yo?",
-        "(blushes) poy...",
-        "p-p-poyo??",
-        "*inhales deeply* ...poyoooooooooo",
-
-        # Negative
-        "poy-nah.",
-        "PO—no. (record scratch)",
-        "...noYO.",
-        "poyo... (shakes head)",
-        "poynope."
-  ]
-
-  await ctx.send(f'{random.choice(responses)}')
-
 @bot.command()
 async def ego(ctx, user: discord.Member= None):
    if user == ctx.author or user == None:
