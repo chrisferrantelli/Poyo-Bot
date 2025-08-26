@@ -15,7 +15,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 
 @bot.event
-async def setup_hook():
+async def on_ready():
        for filename in os.listdir("./cogs"):
 
          if filename.endswith(".py"):
@@ -26,10 +26,7 @@ async def setup_hook():
             except Exception as e:
                print(f"Unable to load {filename}: {e}")
 
-
-@bot.event
-async def on_ready():
-   print(f'{bot.user} has connected to Discord!')
+print(f'{bot.user} has connected to Discord!')
 
 
 
