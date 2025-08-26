@@ -9,7 +9,7 @@ class EgoCog(commands.Cog):
 
 
     @commands.command()
-    async def ego(ctx, user: discord.Member= None):
+    async def ego(self, ctx, user: discord.Member= None):
         if user == ctx.author or user == None:
             await ctx.send(f'Your ego is {random.randint(1,100)}%')
         else:
