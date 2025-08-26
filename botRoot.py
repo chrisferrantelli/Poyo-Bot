@@ -27,7 +27,7 @@ async def setup_hook():
                print(f"Unable to load {filename}: {e}")
 
 
-@bot.event()
+@bot.event
 async def on_ready():
    print(f'{bot.user} has connected to Discord!')
 
