@@ -7,7 +7,7 @@ import aiohttp
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-COPE_AUDIO = os.getenv('COPE_AUDIO')
+AUDIO_PATH = os.getenv('AUDIO_PATH')
 FFMPEG_PATH = os.getenv('FFMPEG_PATH')
 
 # Set up intents
@@ -89,7 +89,7 @@ async def play_cope(ctx):
    vc = ctx.message.author.voice.channel
    voiceCha = await vc.connect()
    await ctx.send(f"Joined {vc.name}")
-   voiceCha.play(discord.FFmpegPCMAudio(source=COPE_AUDIO, executable=FFMPEG_PATH))
+   voiceCha.play(discord.FFmpegPCMAudio(source=AUDIO_PATH, executable=FFMPEG_PATH))
           
 
 bot.run(TOKEN)
