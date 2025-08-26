@@ -7,7 +7,7 @@ class InsultCog(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def insult(ctx, user: discord.Member = None):
+    async def insult(self, ctx, user: discord.Member = None):
         api_url = "https://evilinsult.com/generate_insult.php?lang=en&type=json"
         async with aiohttp.ClientSession() as session:
             async with session.get(api_url) as resp:
