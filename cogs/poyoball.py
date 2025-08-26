@@ -39,5 +39,5 @@ class Fun(commands.Cog):
 
         await ctx.send(f'{random.choice(responses)}')
 
-def setup(client):
-    client.add_cog(Fun(client))
+def setup(bot):
+    bot.add_cog(Fun(bot))
