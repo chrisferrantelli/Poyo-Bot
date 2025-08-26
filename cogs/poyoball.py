@@ -63,5 +63,5 @@ class PoyoballCog(commands.Cog):
             
         await ctx.send(file=discord.File(buf, filename="poyoball.png"))
 
-    async def setup(bot):
-        await bot.add_cog(PoyoballCog(bot))
+async def setup(bot):
+    await bot.add_cog(PoyoballCog(bot))
