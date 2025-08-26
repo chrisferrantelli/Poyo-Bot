@@ -1,5 +1,5 @@
 import discord
-
+import aiohttp
 from discord.ext import commands
 
 class Fun(commands.Cog):
