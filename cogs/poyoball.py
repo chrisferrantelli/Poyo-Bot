@@ -9,6 +9,11 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def poyoball(self, ctx, *, question):
+
+        if question is None:
+            await ctx.send("Please add a question!")
+            return
+        
         responses = [
                 # Positive
                 "POYO!",
