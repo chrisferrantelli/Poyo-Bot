@@ -20,7 +20,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
-   bot.load_extension("cogs.poyoball")
+   await bot.load_extension("cogs.poyoball")
 
 
 @bot.event
