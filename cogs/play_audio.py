@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
-class Fun(commands.Cog, name="Play audio"):
+class PlayAudioCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
@@ -25,4 +25,4 @@ async def play_cope(ctx):
 
 
 async def setup(bot):
-    await bot.add_cog(Fun(bot))
+    await bot.add_cog(PlayAudioCog(bot))
