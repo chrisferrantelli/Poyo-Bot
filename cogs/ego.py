@@ -3,7 +3,7 @@ import random
 
 from discord.ext import commands
 
-class Fun(commands.Cog):
+class EgoCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -16,4 +16,4 @@ class Fun(commands.Cog):
             await ctx.send(f'{user.mention}`s ego is {random.randint(1,100)}%')
 
 async def setup(bot):
-    await bot.add_cog(Fun(bot))
+    await bot.add_cog(EgoCog(bot))
