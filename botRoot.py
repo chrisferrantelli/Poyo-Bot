@@ -23,13 +23,13 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 async def on_ready():
        for filename in os.listdir("./cogs"):
          if filename.endswith(".py"):
-            bot.load_extension(f"cogs.{filename[:-3]}")
+            await bot.load_extension(f"cogs.{filename[:-3]}")
             print(f"The {filename[:-3]} cog has loaded")
 
          else:
             print(f"Unable to load {filename[:-3]}")
 
-print(f'{bot.user} has connected to Discord!')
+         print(f'{bot.user} has connected to Discord!')
 
 
 @bot.command()
