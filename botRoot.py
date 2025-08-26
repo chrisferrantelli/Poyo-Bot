@@ -30,7 +30,7 @@ async def on_ready():
 
 
 @bot.command()
-async def help(ctx):
+async def poyohelp(ctx):
    embed = discord.Embed(
          title='PoyoBot Commands (working on adding more)',
          description='''**Commands:**
