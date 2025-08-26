@@ -54,7 +54,7 @@ class PoyoballCog(commands.Cog):
             font = ImageFont.truetype("DejaVuSans.ttf", 20)
             
             # draws the text on the image
-            draw.text((90, 25), resp, font=font, fille=(0,0,0))
+            draw.text((90, 25), resp, font=font, fill=(0,0,0))
             
             # saves to memorys
             buf = BytesIO()
