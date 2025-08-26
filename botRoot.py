@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 import random
+import asyncio
 import aiohttp
 
 load_dotenv()
@@ -57,7 +58,12 @@ async def play_cope(ctx):
    voiceCha = await vc.connect()
    await ctx.send(f"Joined {vc.name}")
    voiceCha.play(discord.FFmpegPCMAudio(source=AUDIO_PATH, executable=FFMPEG_PATH))
-          
-bot.load_extension("cogs.poyoball")
 
-bot.run(TOKEN)
+
+async def main():
+   async with bot:
+      await bot.load_extension("cogs.poyoball")
+      await bot.run(TOKEN)
+
+
+asyncio.run(main())
