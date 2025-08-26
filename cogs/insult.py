@@ -2,7 +2,7 @@ import discord
 import aiohttp
 from discord.ext import commands
 
-class Fun(commands.Cog):
+class InsultCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -19,4 +19,4 @@ class Fun(commands.Cog):
                     await ctx.send(f'{user.mention}, {insultt}')
 
 async def setup(bot):
-    await bot.add_cog(Fun(bot))
+    await bot.add_cog(InsultCog(bot))

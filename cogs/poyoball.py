@@ -3,7 +3,7 @@ import random
 
 from discord.ext import commands
 
-class Fun(commands.Cog):
+class PoyoballCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -45,4 +45,4 @@ class Fun(commands.Cog):
         await ctx.send(f'{random.choice(responses)}')
 
 async def setup(bot):
-    await bot.add_cog(Fun(bot))
+    await bot.add_cog(PoyoballCog(bot))
