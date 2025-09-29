@@ -9,10 +9,12 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 # Set up intents
 intents = discord.Intents.default()
 intents.message_content = True
+intents.reactions = True
+intents.guilds = True
+intents.members = True 
 
 # Create bot instance
 bot = commands.Bot(command_prefix='!', intents=intents)
-
 
 @bot.event
 async def setup_hook():
@@ -26,12 +28,9 @@ async def setup_hook():
             except Exception as e:
                print(f"Unable to load {filename}: {e}")
 
-
 @bot.event
 async def on_ready():
    print(f'{bot.user} has connected to Discord!')
-
-
 
 @bot.command()
 async def poyohelp(ctx):
@@ -41,7 +40,9 @@ async def poyohelp(ctx):
          !poyoball [question] - Kirby will respond to your yes/no question
          !ego [other user optional] - Run this command to measure your or someone elses ego
          !insult [other user optional] - Run this with or without a user to insult them
-         !play_cope - Lets the bot join in VC and play a sound (needs work since the bot won't leave)
+         !play_cope - Lets the bot join in VC and play a predefined sound
+         !hack - Allows you to "hack" people [NOTE: Does not really hack :)]
+         !tldr - Reply to a long post with !tldr to get the tldr version if you don't want to read
          '''
     )
    
