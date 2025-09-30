@@ -1,12 +1,10 @@
 import discord
 import random
-
 from discord.ext import commands
 
 class EgoCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
 
     @commands.command()
     async def ego(self, ctx, user: discord.Member= None):
