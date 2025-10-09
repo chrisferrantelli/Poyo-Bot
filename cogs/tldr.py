@@ -3,7 +3,7 @@ from transformers import pipeline
 
 summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
-class tldr(commands.Cog):
+class TldrCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.active_fusions = {}
@@ -31,9 +31,10 @@ class tldr(commands.Cog):
 
             tldr = summary[0]['summary_text']
             await ctx.send(f"Here is the tldr: {tldr}")
+            
         except Exception as err:
             await ctx.send(f"There was an error: {err}")
             return
 
 async def setup(bot):
-    await bot.add_cog(tldr(bot))
+    await bot.add_cog(TldrCog(bot))
