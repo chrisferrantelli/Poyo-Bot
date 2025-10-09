@@ -2,8 +2,6 @@ import discord
 import random
 from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
-
-
 from discord.ext import commands
 
 class PoyoballCog(commands.Cog):

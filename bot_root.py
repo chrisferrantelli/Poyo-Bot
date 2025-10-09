@@ -6,14 +6,12 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-# Set up intents
 intents = discord.Intents.default()
 intents.message_content = True
 intents.reactions = True
 intents.guilds = True
 intents.members = True 
 
-# Create bot instance
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
