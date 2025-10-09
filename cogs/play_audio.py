@@ -26,7 +26,6 @@ class PlayAudioCog(commands.Cog):
         elif not voiceCha:
             voiceCha = await vc.connect()
 
-
         if voiceCha.is_playing():
             voiceCha.stop()
         
@@ -35,7 +34,6 @@ class PlayAudioCog(commands.Cog):
         try: 
             while voiceCha.is_playing():
                 await asyncio.sleep(1)
-        
         finally:
             await voiceCha.disconnect()
 
