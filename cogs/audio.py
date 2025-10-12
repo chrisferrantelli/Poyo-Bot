@@ -26,7 +26,6 @@ class AudioCog(commands.Cog):
         elif not voiceCha:
             voiceCha = await vc.connect()
 
-
         if voiceCha.is_playing():
             voiceCha.stop()
         
