@@ -4,7 +4,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import asyncio
 
-class PlayAudioCog(commands.Cog):
+class AudioCog(commands.Cog):
     load_dotenv()
     AUDIO_PATH = os.getenv('AUDIO_PATH')
     FFMPEG_PATH = os.getenv('FFMPEG_PATH')
@@ -30,14 +30,13 @@ class PlayAudioCog(commands.Cog):
         if voiceCha.is_playing():
             voiceCha.stop()
         
-        voiceCha.play(discord.FFmpegPCMAudio(source=PlayAudioCog.AUDIO_PATH, executable=PlayAudioCog.FFMPEG_PATH))
+        voiceCha.play(discord.FFmpegPCMAudio(source=AudioCog.AUDIO_PATH, executable=AudioCog.FFMPEG_PATH))
 
         try: 
             while voiceCha.is_playing():
                 await asyncio.sleep(1)
-        
         finally:
             await voiceCha.disconnect()
 
 async def setup(bot):
-    await bot.add_cog(PlayAudioCog(bot))
+    await bot.add_cog(AudioCog(bot))
