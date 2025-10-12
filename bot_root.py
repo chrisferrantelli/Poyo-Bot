@@ -13,6 +13,7 @@ intents.guilds = True
 intents.members = True 
 
 bot = commands.Bot(command_prefix='!', intents=intents)
+bot.embed_color = discord.Color.blue()
 
 @bot.event
 async def setup_hook():
@@ -22,7 +23,6 @@ async def setup_hook():
             try:
                await bot.load_extension(f"cogs.{filename[:-3]}")
                print(f"The {filename[:-3]} cog has loaded")
-
             except Exception as e:
                print(f"Unable to load {filename}: {e}")
 
@@ -41,6 +41,10 @@ async def poyohelp(ctx):
          !play_cope - Lets the bot join in VC and play a predefined sound
          !hack - Allows you to "hack" people [NOTE: Does not really hack :)]
          !tldr - Reply to a long post with !tldr to get the tldr version if you don't want to read
+         !warnconfig - Allows you to add/remove trigger words for automod
+         !warnuser - Warns a specified user
+         !whitelist - Allows you to add a specified role to the whitelist allowing immunity
+         !quote [sarcastic, valley-girl, genz] (leave blank if normal style) - Quotes a user in different styles
          '''
     )
    
