@@ -92,7 +92,7 @@ class UtilityCog(commands.Cog):
             )
             valleygirl_embed.set_footer(text = f"- {quoted_user.display_name}")
             await ctx.send(embed = valleygirl_embed) 
-        elif action == "genzz":
+        elif action == "genz":
             slang = {
                 "hello": ["yo", "hey bestie", "sup"],
                 "yes": ["fr", "deadass", "on god"],
@@ -155,7 +155,7 @@ class UtilityCog(commands.Cog):
 
             lemmatizer = WordNetLemmatizer()
             result = []
-            
+
             for word in quoted_result.lower().split():
                 clean_word = word.strip("?.!,")
 
