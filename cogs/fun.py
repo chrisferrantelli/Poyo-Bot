@@ -172,5 +172,12 @@ class FunCog(commands.Cog):
         lost_item = random.choice(lost_items)
         await msg.edit(content=f"Hacking has completed, {user.mention} has lost their {lost_item}")
 
+
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def botsay(self, ctx, *, message):
+        await ctx.message.delete()
+        await ctx.send(message)
+
 async def setup(bot):
      await bot.add_cog(FunCog(bot))

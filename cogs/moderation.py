@@ -11,6 +11,7 @@ class ModerationCog(commands.Cog):
     Whitelist command
     """
     @commands.command()
+    @commands.has_permissions(administrator=True)
     async def whitelist(self, ctx, action, *roles: discord.Role):
         conn = sqlite3.connect("whitelist.db")
         cursor = conn.cursor()
@@ -48,6 +49,7 @@ class ModerationCog(commands.Cog):
     Warn config command
     """
     @commands.command()
+    @commands.has_permissions(administrator=True)
     async def warnconfig(self, ctx, action, *words):
         conn = sqlite3.connect("triggerwords.db")
         cursor = conn.cursor()
@@ -163,6 +165,7 @@ class ModerationCog(commands.Cog):
     Warn user command
     """
     @commands.command()
+    @commands.has_permissions(administrator=True)
     async def warnuser(self, ctx, member: discord.Member, *, reason="No reason provided"):
         if ctx.author.top_role < member.top_role:
             embed = discord.Embed(
