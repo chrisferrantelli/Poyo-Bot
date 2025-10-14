@@ -45,6 +45,7 @@ class ModerationCog(commands.Cog):
                 cursor.execute("DELETE from whitelist WHERE role_id = ?", (role.id,))
         else:
             await ctx.send("Please choose a valid option")
+            return
         
         conn.commit()
         conn.close()
@@ -84,7 +85,8 @@ class ModerationCog(commands.Cog):
                 cursor.execute("DELETE from triggerwords WHERE word = ?", (word,))
         else:
             await ctx.send("Invalid selection, please try again")
-
+            return
+        
         conn.commit()
         conn.close()
 
