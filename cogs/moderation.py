@@ -1,8 +1,13 @@
 import discord
 import sqlite3
+from dotenv import load_dotenv
+import os
 from discord.ext import commands
 
 class ModerationCog(commands.Cog):
+    
+    load_dotenv()
+    DB_PATH = os.getenv('DB_PATH')
 
     def __init__(self, bot):
         self.bot = bot
@@ -13,7 +18,7 @@ class ModerationCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def whitelist(self, ctx, action, *roles: discord.Role):
-        conn = sqlite3.connect("whitelist.db")
+        conn = sqlite3.connect(os.path.join(self.DB_PATH, "whitelist.db"))
         cursor = conn.cursor()
         cursor.execute("""
                         CREATE TABLE IF NOT EXISTS whitelist (
@@ -51,7 +56,7 @@ class ModerationCog(commands.Cog):
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def warnconfig(self, ctx, action, *words):
-        conn = sqlite3.connect("triggerwords.db")
+        conn = sqlite3.connect(os.path.join(self.DB_PATH, "triggerwords.db"))
         cursor = conn.cursor()
         cursor.execute("""
                         CREATE TABLE IF NOT EXISTS triggerwords (
@@ -91,13 +96,13 @@ class ModerationCog(commands.Cog):
     """
     @commands.Cog.listener()
     async def on_message(self, message):
-        conn = sqlite3.connect("triggerwords.db")
+        conn = sqlite3.connect(os.path.join(self.DB_PATH, "triggerwords.db"))
         cursor = conn.cursor()
         cursor.execute("SELECT word FROM triggerwords WHERE guild_id = ?", (message.guild.id,))
         user_words = cursor.fetchall()       
         conn.close()
         
-        conn = sqlite3.connect("whitelist.db")
+        conn = sqlite3.connect(os.path.join(self.DB_PATH, "whitelist.db"))
         cursor = conn.cursor()
         cursor.execute("SELECT role_id FROM whitelist WHERE guild_id = ?", (message.guild.id,))
         whitelisted_rows = cursor.fetchall()
@@ -117,7 +122,7 @@ class ModerationCog(commands.Cog):
 
             if word in message.content.lower():
                 reason = f"Used trigger word: {word}"
-                conn = sqlite3.connect("userwarnings.db", timeout = 10)
+                conn = sqlite3.connect(os.path.join(self.DB_PATH, "userwarnings.db", timeout = 10))
                 cursor = conn.cursor()
                 cursor.execute("SELECT warn_count FROM userwarnings WHERE user_id = ? AND guild_id = ?", (message.author.id, message.guild.id))
                 user_words = cursor.fetchone()
