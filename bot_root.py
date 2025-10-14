@@ -18,13 +18,12 @@ bot.embed_color = discord.Color.blue()
 @bot.event
 async def setup_hook():
        for filename in os.listdir("./cogs"):
-
          if filename.endswith(".py"):
             try:
                await bot.load_extension(f"cogs.{filename[:-3]}")
                print(f"The {filename[:-3]} cog has loaded")
-            except Exception as e:
-               print(f"Unable to load {filename}: {e}")
+            except Exception as err:
+               print(f"Unable to load {filename}: {err}")
 
 @bot.event
 async def on_ready():
