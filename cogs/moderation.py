@@ -192,7 +192,7 @@ class ModerationCog(commands.Cog):
                         user_id INTEGER NOT NULL,
                         reason TEXT,
                         guild_id INTEGER,
-                        warn_count INTEGER,x
+                        warn_count INTEGER,
                         timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
                     )
                 """)
@@ -263,18 +263,18 @@ class ModerationCog(commands.Cog):
             embed2.add_field(name = f"You were warned for: ", value = f"{reason}")
             await ctx.send(embed=embed2)
             
-        conn = sqlite3.connect(os.path.join(self.DB_PATH, "triggerwords.db"))
-        cursor = conn.cursor()
-        cursor.execute("""
-                        CREATE TABLE IF NOT EXISTS userwarnings (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        user_id INTEGER NOT NULL,
-                        reason TEXT,
-                        guild_id INTEGER,
-                        warn_count INTEGER,x
-                        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-                    )
-        """)
+            conn = sqlite3.connect(os.path.join(self.DB_PATH, "userwarnings.db"), timeout = 10)
+            cursor = conn.cursor()
+            cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS userwarnings (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL,
+                    reason TEXT,
+                    guild_id INTEGER,
+                    warn_count INTEGER,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
 
         cursor.execute("SELECT COUNT (*) FROM userwarnings WHERE user_id = ? and guild_id = ?", (member.id, ctx.guild.id))
         user_exist = cursor.fetchone()[0]
