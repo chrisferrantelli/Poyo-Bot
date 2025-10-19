@@ -51,6 +51,41 @@ class ModerationCog(commands.Cog):
         conn.close()
 
 
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def triggerword(self, ctx, action, trigger: str, *, response: str = None):
+        conn = sqlite3.connect(os.path.join(self.DB_PATH, "triggerdef.db"))
+        cursor = conn.cursor()
+        cursor.execute("""
+                        CREATE TABLE IF NOT EXISTS triggerdef (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        trigger TEXT NOT NULL,
+                        response TEXT NOT NULL,
+                        guild_id INTEGER,
+                        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        UNIQUE(trigger, guild_id)
+                        )
+        """)
+
+        if action == "add_trigger":
+            cursor.execute("SELECT 1 FROM triggerdef WHERE trigger = ? AND guild_id = ?", (trigger, ctx.guild.id))
+            existing_word = cursor.fetchone()
+
+            if existing_word == None:
+                cursor.execute("INSERT into triggerdef (trigger, response, guild_id) VALUES (?, ?, ?)", (trigger, response, ctx.guild.id))
+            else:
+                await ctx.send(f"{trigger} already exists as a trigger word")
+
+        elif action == "remove_trigger":
+                cursor.execute("DELETE from triggerdef WHERE trigger = ? AND guild_id = ?", (trigger, ctx.guild.id))
+        else:
+            await ctx.send("Invalid selection, please try again")
+            return
+        
+        conn.commit()
+        conn.close()
+
+
     """
     Warn config command
     """
@@ -110,22 +145,47 @@ class ModerationCog(commands.Cog):
         whitelisted_rows = cursor.fetchall()
         conn.close()
 
+        conn = sqlite3.connect(os.path.join(self.DB_PATH, "triggerdef.db"))
+        cursor = conn.cursor()
+        cursor.execute("SELECT trigger, response FROM triggerdef WHERE guild_id = ?", (message.guild.id,))
+        auto_triggers = cursor.fetchall()
+        conn.close()
+
+        if message.content.startswith(tuple(await self.bot.get_prefix(message))):
+            return
+        
+        if message.author == self.bot.user:
+            return
+        
+        for trigger, response in auto_triggers:
+            if trigger in message.content.lower():
+                await message.channel.send(response)
+                break
+                
         whitelisted_roles = [whitelisted_row[0] for whitelisted_row in whitelisted_rows]
 
         for role in message.author.roles:
             if role.id in whitelisted_roles:
                 return
 
-        if message.author == self.bot.user:
-            return
-        
         for user_word in user_words:
             word = user_word[0]
 
             if word in message.content.lower():
                 reason = f"Used trigger word: {word}"
-                conn = sqlite3.connect(os.path.join(self.DB_PATH, "userwarnings.db", timeout = 10))
+                conn = sqlite3.connect(os.path.join(self.DB_PATH, "userwarnings.db"), timeout = 10)
                 cursor = conn.cursor()
+                cursor.execute("""
+                        CREATE TABLE IF NOT EXISTS userwarnings (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        user_id INTEGER NOT NULL,
+                        reason TEXT,
+                        guild_id INTEGER,
+                        warn_count INTEGER,x
+                        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+                    )
+                """)
+                conn.commit()
                 cursor.execute("SELECT warn_count FROM userwarnings WHERE user_id = ? AND guild_id = ?", (message.author.id, message.guild.id))
                 user_words = cursor.fetchone()
 
@@ -192,7 +252,7 @@ class ModerationCog(commands.Cog):
             embed2.add_field(name = f"You were warned for: ", value = f"{reason}")
             await ctx.send(embed=embed2)
             
-        conn = sqlite3.connect("userwarnings.db")
+        conn = sqlite3.connect(os.path.join(self.DB_PATH, "triggerwords.db"))
         cursor = conn.cursor()
         cursor.execute("""
                         CREATE TABLE IF NOT EXISTS userwarnings (
