@@ -147,6 +147,17 @@ class ModerationCog(commands.Cog):
 
         conn = sqlite3.connect(os.path.join(self.DB_PATH, "triggerdef.db"))
         cursor = conn.cursor()
+        cursor.execute("""
+                CREATE TABLE IF NOT EXISTS triggerdef (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                trigger TEXT NOT NULL,
+                response TEXT NOT NULL,
+                guild_id INTEGER,
+                timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE(trigger, guild_id)
+                )
+        """)
+        conn.commit()
         cursor.execute("SELECT trigger, response FROM triggerdef WHERE guild_id = ?", (message.guild.id,))
         auto_triggers = cursor.fetchall()
         conn.close()
