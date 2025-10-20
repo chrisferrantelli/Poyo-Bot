@@ -26,3 +26,46 @@ This bot is currently a work in progress and I am actively working on adding mor
     - Channel slow mode
     - Managing roles
     - Allow users to select roles in Roles channel
+ 
+## How to add to your server via Ubuntu VPS
+- Run the following
+    - ```bash
+      sudo apt update && sudo apt install -y docker.io docker-compose git
+- Verify Docker installed
+    - docker --version
+      docker compose version
+      git --version
+- Clone the the repositiory
+  - I added it to /opt so cd into that direcotry
+    ```bash
+      cd /opt
+      sudo git clone https://github.com/<your-github-username>/Poyo-Bot.git
+- Add the .env file to /opt/
+  ```bash
+  sudo nano .env
+  ```
+  - Edit the file like so
+    ```bash
+      DISCORD_TOKEN=your_discord_token_here
+      DB_PATH=/opt/databases  #You'll need to create the databases folder
+      FFMPEG_LOCATION=/usr/bin/ffmpeg
+      AUDIO_PATH=/opt/resources/audio_file_goes_here #You'll need to create the resources folder
+      
+- Update the docker-compose.yml file
+  ```bash
+  version: '3.9'
+
+    services:
+      poyobot:
+        container_name: poyobot
+        build:
+          context: ./Poyo-Bot
+        env_file: /opt/.env
+        volumes:
+          - ./Poyo-Bot/resources:/opt/resources
+          - /opt/databases:/opt/databases
+        restart: unless-stopped
+- Build and run the bot
+  - Run the following
+    ```bash
+    docker compose up -d --build
