@@ -38,6 +38,7 @@ class FunCog(commands.Cog):
                 "poy...",
                 "p-p-poyo??",
                 "...poyoooooooooo",
+                "poyo????"
 
                 # Negative
                 "poy-nah.",
